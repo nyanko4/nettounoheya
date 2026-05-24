@@ -3,7 +3,6 @@ const axios = require("axios");
 const reqcheck = require("../middleware/sign");
 const omikuji = require("../module/omikuji");
 const command = require("../module/command");
-const { bomb } = require("../module/bomb");
 
 async function getchat(req, res) {
   const c = await reqcheck(req);
@@ -21,7 +20,7 @@ async function getchat(req, res) {
     return res.sendStatus(200);
   }
   
-  const handlers = [omikuji, command, bomb];
+  const handlers = [omikuji, command];
 
   for (const handler of handlers) {
     if ((await handler(body, messageId, roomId, accountId)) === "ok") {
