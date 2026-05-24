@@ -1,5 +1,4 @@
 const supabase = require("../supabase/client");
-const { sendchatwork } = require("../ctr/message");
 
 function getOmikujiResult() {
   const outcomes = [
@@ -20,34 +19,33 @@ function getOmikujiResult() {
 };
 
 //おみくじ
-async function omikuji(body, messageId, roomId, accountId) {
-  if (!body.match(/^おみくじ$/)) return;
+async function omikuji(chatType, id) {
     try {
       const { data, error } = await supabase
-        .from("omikuji")
-        .select("account_id")
-        .eq("account_id", accountId)
+        .from(`${chatType}Omikuji`)
+        .select("id")
+        .eq("id", id)
         .single();
 
       if (error) {
         console.error("Supabaseエラー:", error);
       }
 
-      if (data) return;
+      if (data) return "おみくじは1日1回までです";
       
       const omikujiResult = getOmikujiResult();
       const { data: insertData, error: insertError } = await supabase
-        .from("omikuji")
+        .from(`${chatType}Omikuji`)
         .insert([
           {
-            account_id: accountId,
+            id: id,
             result: omikujiResult,
           },
         ]);
       
       console.log(insertData)
       
-      if (insertData === null) await sendchatwork(`[rp aid=${accountId} to=${roomId}-${messageId}]\n${omikujiResult}`, roomId);
+      if (insertData === null) return omikujiResult;
       
       if (insertError) {
         console.error("Supabase保存エラー:", insertError);
