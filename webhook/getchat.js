@@ -2,7 +2,6 @@ const CHATWORK_API_TOKEN = process.env.CWapitoken;
 const axios = require("axios");
 const reqcheck = require("../middleware/sign");
 const omikuji = require("../module/omikuji");
-const command = require("../module/command");
 
 async function getchat(req, res) {
   const c = await reqcheck(req);
@@ -20,7 +19,7 @@ async function getchat(req, res) {
     return res.sendStatus(200);
   }
   
-  const handlers = [omikuji, command];
+  const handlers = [omikuji];
 
   for (const handler of handlers) {
     if ((await handler(body, messageId, roomId, accountId)) === "ok") {
