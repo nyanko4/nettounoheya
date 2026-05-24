@@ -2,6 +2,7 @@
 おみくじのslashコマンド部分を残せるようにする
 無理な場合はslashコマンドを使用せずに!等で反応するようにする
 chatworkコードの部分を調整する
+https://zenn.dev/semapho/articles/063582c32eff32
 */
 
 
