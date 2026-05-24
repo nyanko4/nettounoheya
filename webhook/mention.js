@@ -1,4 +1,4 @@
-const { readmessage, deleteMessages, sendchatwork } = require("../ctr/message");
+const { readMessage, deleteMessages, sendMessage } = require("../ctr/message");
 const { isUserAdmin } = require("../ctr/cwdata");
 
 
@@ -14,9 +14,9 @@ async function mentionWebhook(req, res) {
   
   if (body.includes("削除")) {
     const isAdmin = await isUserAdmin(accountId, roomId);
-    if (!isAdmin) return await sendchatwork("管理者のみ利用可能です", roomId);
+    if (!isAdmin) return await sendMessage("管理者のみ利用可能です", roomId, "chatwork");
     
-    await deleteMessages(body, messageId, roomId, accountId);
+    await deleteMessages(body, messageId, roomId, accountId, "chatwork");
     return res.sendStatus(200);
   }
   
