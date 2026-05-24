@@ -1,3 +1,10 @@
+/*
+おみくじのslashコマンド部分を残せるようにする
+無理な場合はslashコマンドを使用せずに!等で反応するようにする
+chatworkコードの部分を調整する
+*/
+
+
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits } = require('discord.js');
 const { omikuji } = require("../module/omikuji");
 
