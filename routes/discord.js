@@ -1,4 +1,5 @@
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits } = require('discord.js');
+const { omikuji } = require("../module/omikuji");
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
