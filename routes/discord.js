@@ -41,7 +41,7 @@ client.on('interactionCreate', async (interaction) => {
 
   await interaction.deferReply();
   if (interaction.commandName == 'おみくじ') {
-    result = await omikuji("discord", interaction);
+    result = await omikuji("discord", interaction.user.id);
   }
 
   interactin.editReply(result);
