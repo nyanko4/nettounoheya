@@ -1,3 +1,5 @@
+// 凶から3%移動させる
+
 const supabase = require("../supabase/client");
 const { sendchatwork } = require("../ctr/message");
 
