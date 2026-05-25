@@ -17,10 +17,7 @@ async function getchat(req, res) {
   if (accountId == process.env.accountId) {
     return res.sendStatus(200);
   }
-    if ((await commands(body, messageId, roomId, accountId)) === "ok") {
-      return res.sendStatus(200);
-    }
-
+  await commands(body, messageId, roomId, accountId);
   res.sendStatus(200);
 }
 
