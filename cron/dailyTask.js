@@ -5,7 +5,8 @@ function startDailyTask() {
   new CronJob(
     "0 0 0 * * *",
     async () => {
-      await supabase.from("omikuji").delete().neq("account_id", 0)
+      await supabase.from("chatworkOmikuji").delete().neq("id", 0)
+      await supabase.from("discordOmikuji").delete().neq("id", 0)
     },
     null,
     true,
