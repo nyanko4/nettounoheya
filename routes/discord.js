@@ -51,10 +51,12 @@ rest.put(
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
   
-  await interaction.deferReply();
+  await interaction.deferReply({
+    flags: MessageFlags.Ephemeral
+  });
   if (interaction.commandName == 'おみくじ') {
     result = await omikuji("discord", interaction.user.id);
   }
-  await interaction.editReply({ content: result, flags: MessageFlags.Ephemeral });
+  await interaction.editReply({ content: result });
 })
 
