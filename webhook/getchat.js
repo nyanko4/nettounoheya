@@ -1,6 +1,6 @@
 const axios = require("axios");
 const reqcheck = require("../middleware/sign");
-const { commands } = require("../module/commands");
+const commands = require("../module/commands");
 
 async function getchat(req, res) {
   const c = await reqcheck(req);
