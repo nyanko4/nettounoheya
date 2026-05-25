@@ -1,12 +1,12 @@
 /*
 おみくじのslashコマンド部分を残せるようにする
-無理な場合はslashコマンドを使用せずに!等で反応するようにする
+無理な場合はslashコマンドを使用せず反応するようにする
 chatworkコードの部分を調整する
 https://zenn.dev/semapho/articles/063582c32eff32
 */
 
 
-const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Collection, Events, MessageFlags } = require('discord.js');
+const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events } = require('discord.js');
 const { omikuji } = require("../module/omikuji");
 let result = "";
 
@@ -14,13 +14,11 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
-const collection = new Collections();
-
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}`);
+client.once(Events.clientReady, () => {
+    console.log(`${client.user.tag} ready`);
 });
 
-client.on("messageCreate", async (message) => {
+client.on(Events.messageCreate, async (message) => {
   if (message.content.match(/^おみくじ$/)) {
     result = await omikuji("discord", message.user.id);
   }
