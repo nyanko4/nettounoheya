@@ -8,7 +8,7 @@ async function commands(body, messageId, roomId, accountId) {
   }
 
   if (result.trim() !== "") {
-    await sendchatwork(`[aid=${accountId} to=${roomId}-${messageId}][pname:${accountId}]さん\n${result}`, roomId);
+    await sendchatwork(`[rp aid=${accountId} to=${roomId}-${messageId}][pname:${accountId}]さん\n${result}`, roomId);
   }
   
   return "ok";
