@@ -1,12 +1,9 @@
 /*
-おみくじのslashコマンド部分を残せるようにする
-無理な場合はslashコマンドを使用せず反応するようにする
-chatworkコードの部分を調整する
 https://zenn.dev/semapho/articles/063582c32eff32
 */
 
 
-const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events } = require('discord.js');
+const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags } = require('discord.js');
 const { omikuji } = require("../module/omikuji");
 let result = "";
 
@@ -25,9 +22,7 @@ client.on(Events.messageCreate, async (message) => {
   message.reply(result);
 })
 
-//上か下かどちらか
 
-/*
 const commands = [
   new SlashCommandBuilder()
     .setName('おみくじ')
@@ -60,7 +55,6 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.commandName == 'おみくじ') {
     result = await omikuji("discord", interaction.user.id);
   }
-
-  interactin.editReply(result);
+  await interaction.editReply({ content: result, flags: MessageFlags.Ephemeral });
 })
-*/
+
