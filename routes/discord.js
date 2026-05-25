@@ -6,18 +6,30 @@ https://zenn.dev/semapho/articles/063582c32eff32
 */
 
 
-const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits } = require('discord.js');
+const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Collection, Events, MessageFlags } = require('discord.js');
 const { omikuji } = require("../module/omikuji");
+let result = "";
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
+const collection = new Collections();
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
 
+client.on("messageCreate", async (message) => {
+  if (message.content.match(/^おみくじ$/)) {
+    result = await omikuji("discord", message.user.id);
+  }
+  message.reply(result);
+})
 
+//上か下かどちらか
+
+/*
 const commands = [
   new SlashCommandBuilder()
     .setName('おみくじ')
@@ -43,10 +55,9 @@ rest.put(
   { body: commands }
 );
 
-client.on('interactionCreate', async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
-  let result = "";
-
+  
   await interaction.deferReply();
   if (interaction.commandName == 'おみくじ') {
     result = await omikuji("discord", interaction.user.id);
@@ -54,3 +65,4 @@ client.on('interactionCreate', async (interaction) => {
 
   interactin.editReply(result);
 })
+*/
