@@ -22,7 +22,7 @@ async function getchat(req, res) {
   const handlers = [omikuji];
 
   for (const handler of handlers) {
-    if ((await handler(body, messageId, roomId, accountId)) === "ok") {
+    if ((await handler("chatwork", {body, messageId, roomId, accountId})) === "ok") {
       return res.sendStatus(200);
     }
   }
