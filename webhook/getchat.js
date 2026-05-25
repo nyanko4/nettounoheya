@@ -20,7 +20,6 @@ async function getchat(req, res) {
     if ((await commands(body, messageId, roomId, accountId)) === "ok") {
       return res.sendStatus(200);
     }
-  }
 
   res.sendStatus(200);
 }
