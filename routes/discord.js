@@ -15,7 +15,7 @@ client.once(Events.clientReady, () => {
     console.log(`${client.user.tag} ready`);
 });
 
-client.on(Events.messageCreate, async (message) => {
+client.on(Events.MessageCreate, async (message) => {
   console.log(message)
   if (message.content.match(/^おみくじ$/)) {
     result = await omikuji("discord", message.user.id);
