@@ -53,7 +53,7 @@ client.on("interactionCreate", async (interaction) => {
   
   await interaction.deferReply();
   if (interaction.commandName == 'おみくじ') {
-    result = await omikuji(interaction.user.id);
+    result = await omikuji("discord", interaction.user.id);
   }
   await interaction.editReply({ content: result, flags: MessageFlags.Ephemeral });
 })
