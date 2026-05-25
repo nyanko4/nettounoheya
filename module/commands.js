@@ -1,5 +1,5 @@
 const { sendchatwork } = require("../ctr/message");
-const { omikuji } = require("./omikuji");
+const omikuji = require("./omikuji");
 
 async function commands(body, messageId, roomId, accountId) {
   let result = "";
