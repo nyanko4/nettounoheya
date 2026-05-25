@@ -4,7 +4,7 @@ https://zenn.dev/semapho/articles/063582c32eff32
 
 
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags } = require('discord.js');
-const { omikuji } = require("../module/omikuji");
+const omikuji = require("../module/omikuji");
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
@@ -17,7 +17,6 @@ client.once(Events.ClientReady, () => {
 client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
   let result = "";
-  console.log(message)
   if (message.content.match(/^おみくじ$/)) {
     result = await omikuji("discord", message.author.id);
   }
