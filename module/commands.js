@@ -2,7 +2,7 @@ const { sendchatwork } = require("../ctr/message");
 let result = "";
 
 async function commands(body, messageId, roomId, accountId) {
-  if (body.match(/^おみくじ$/) {
+  if (body.match(/^おみくじ$/)) {
     result = await omikuji("chatwork", accountId);
   }
 
