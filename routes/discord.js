@@ -23,20 +23,23 @@ client.once(Events.ClientReady, () => {
 
 client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
+
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
   if (message.author.id == process.env.LOG_PERSON_ID) {
-    const channel = client.channel.cache.get(process.env.LOG_ROOM_ID);
+    const channel = client.channels.cache.get(process.env.LOG_ROOM_ID);
     await channel.send(`> ${message.content}`);
   }
+    
   let result = "";
   for (command in commands) {
     if (message.content == command) {
       result = await commands[command]("discord", message.author.id);
+      break;
     }
   }
 
   if (result.trim() !== "") {
-    message.reply(result);
+    await message.reply(result);
   }
 })
 
