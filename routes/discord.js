@@ -16,6 +16,7 @@ client.once(Events.ClientReady, () => {
 
 client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
+  console.log(`発言者:${message.author}\nメッセージ:${message.content}`);
   let result = "";
   if (message.content.match(/^おみくじ$/)) {
     result = await omikuji("discord", message.author.id);
