@@ -1,4 +1,6 @@
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials } = require('discord.js');
+const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
+const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
 
 const client = new Client({
     intents: [
@@ -25,8 +27,8 @@ client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
 
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
-  if (message.author.id == process.env.LOG_PERSON_ID) {
-    const channel = client.channels.cache.get(process.env.LOG_ROOM_ID);
+  if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
+    const channel = client.channels.cache.get(LOG_ROOM_ID);
     await channel.send(`> ${message.content}`);
   }
     
