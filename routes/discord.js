@@ -29,7 +29,7 @@ client.on(Events.MessageCreate, async (message) => {
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
   if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
     const channel = client.channels.cache.get(LOG_ROOM_ID);
-    await channel.send(`> ${message.content}`);
+    await channel.send(`>>> ${message.content}`);
   }
     
   let result = "";
