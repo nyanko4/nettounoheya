@@ -3,6 +3,8 @@
 https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 */
 
+// log関数整備　ファイル対応
+
 
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials } = require('discord.js');
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
@@ -33,10 +35,7 @@ client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
 
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
-  if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
-    const channel = client.channels.cache.get(LOG_ROOM_ID);
-    await channel.send(`>>> ${message.content}`);
-  }
+  await log(message);
     
   let result = "";
   for (command in commands) {
@@ -49,6 +48,10 @@ client.on(Events.MessageCreate, async (message) => {
   if (result.trim() !== "") {
     await message.reply(result);
   }
+})
+
+client.on(Events.MessageUpdate, async (oldMessage, newMessage) {
+    
 })
 
 
@@ -84,5 +87,12 @@ client.on("interactionCreate", async (interaction) => {
   }
   await interaction.editReply({ content: result });
 })
+
+async log(event) {
+    if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
+    const channel = client.channels.cache.get(LOG_ROOM_ID);
+    await channel.send(`>>> ${message.content}`);
+  }
+}
 
 client.login(process.env.DISCORD_APITOKEN);
