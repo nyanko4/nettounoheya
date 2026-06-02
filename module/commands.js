@@ -4,7 +4,7 @@ const omikuji = require("./omikuji");
 async function commands(body, messageId, roomId, accountId) {
   let result = "";
   if (body.match(/^おみくじ$/)) {
-    result = await omikuji("chatwork", accountId);
+    result = await omikuji(accountId, "chatwork");
   }
 
   if (result.trim() !== "") {
