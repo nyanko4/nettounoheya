@@ -89,7 +89,7 @@ client.on("interactionCreate", async (interaction) => {
     flags: MessageFlags.Ephemeral
   });
   if (interaction.commandName == 'おみくじ') {
-    result = await omikuji("discord", interaction.user.id);
+    result = await omikuji(interaction, "discord");
   }
   await interaction.editReply({ content: result });
 })
@@ -100,6 +100,7 @@ async function log(message) {
     .addField({ name: message.author.username, value: message.content })
     .setColor(0x00ff00)
     .setTimestamp(message.createdTimestamp)
+    .setURL(message.attachments.proxyURL)
     const channel = client.channels.cache.get(LOG_ROOM_ID);
     await channel.send({ embeds: [embed] });
   }
