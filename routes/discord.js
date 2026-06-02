@@ -108,7 +108,7 @@ async function log(message) {
 async function debug(message) {
   if (message.author.id != BOT_OWNER) return;
   debugFlag = !debugFlag;
-  message.reply(`デバッグモードを${debugFlag ? "ON" : "OFF"}にしました`);
+  return `デバッグモードを${debugFlag ? "ON" : "OFF"}にしました`;
 }
 
 client.login(process.env.DISCORD_APITOKEN);
