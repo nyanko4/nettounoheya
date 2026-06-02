@@ -53,7 +53,7 @@ client.on(Events.MessageCreate, async (message) => {
   }
 })
 
-client.on(Events.MessageUpdate, async (oldMessage, newMessage) {
+client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
   await log(newMessage);
 })
 
