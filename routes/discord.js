@@ -9,7 +9,7 @@ https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials } = require('discord.js');
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
 const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
-const BOT_OWNER = process.env.BOT_OWNER;
+const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
 let debugFlag = false;
 
 const client = new Client({
@@ -107,7 +107,7 @@ async function log(message) {
 }
 
 async function debug(message) {
-  if (message.author.id != BOT_OWNER) return;
+  if (message.author.id != BOT_OWNER_ID) return;
   debugFlag = !debugFlag;
   return `デバッグモードを${debugFlag ? "ON" : "OFF"}にしました`;
 }
