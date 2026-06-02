@@ -21,12 +21,13 @@ function getOmikujiResult() {
 };
 
 //おみくじ
-async function omikuji(chatType, id) {
+async function omikuji(id, chatType) {
     try {
+      const userId = chatType == "discord" ? id.author.id : id;
       const { data, error } = await supabase
         .from(`${chatType}Omikuji`)
         .select("id")
-        .eq("id", id)
+        .eq("id", userId)
         .single();
 
       if (error) {
@@ -40,7 +41,7 @@ async function omikuji(chatType, id) {
         .from(`${chatType}Omikuji`)
         .insert([
           {
-            id: id,
+            id: userId,
             result: omikujiResult,
           },
         ]);
