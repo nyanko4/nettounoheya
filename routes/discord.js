@@ -9,6 +9,8 @@ https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials } = require('discord.js');
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
 const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
+const BOT_OWNER = process.env.BOT_OWNER;
+let debug = true;
 
 const client = new Client({
     intents: [
@@ -25,6 +27,7 @@ const client = new Client({
 
 const commands = {
   おみくじ: require("../module/omikuji"),
+  debug: debug,
 }
 
 client.once(Events.ClientReady, () => {
@@ -40,7 +43,7 @@ client.on(Events.MessageCreate, async (message) => {
   let result = "";
   for (command in commands) {
     if (message.content == command) {
-      result = await commands[command]("discord", message.author.id);
+      result = await commands[command](message, "discord");
       break;
     }
   }
@@ -88,7 +91,7 @@ client.on("interactionCreate", async (interaction) => {
   await interaction.editReply({ content: result });
 })
 
-async log(message) {
+async function log(message) {
     if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
       const embed = new EmbedBuilder()
       .addField({ name: message.author.username, value: message.content })
@@ -97,6 +100,12 @@ async log(message) {
       const channel = client.channels.cache.get(LOG_ROOM_ID);
       await channel.send({ embeds: [embed] });
   }
+}
+
+async function debug(message) {
+  if (message.author.id != BOT_OWNER) return;
+  debug = !debug;
+  message.reply(`デバッグモードを${debug ? "ON" : "OFF"}にしました`);
 }
 
 client.login(process.env.DISCORD_APITOKEN);
