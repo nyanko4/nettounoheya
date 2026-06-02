@@ -6,7 +6,7 @@ https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 // log関数整備　ファイル対応
 
 
-const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials } = require('discord.js');
+const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials, EmbedBuilder } = require('discord.js');
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
 const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
 const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
