@@ -10,7 +10,7 @@ const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, Me
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
 const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
 const BOT_OWNER = process.env.BOT_OWNER;
-let debugFlag = true;
+let debugFlag = false;
 
 const client = new Client({
     intents: [
@@ -36,6 +36,9 @@ client.once(Events.ClientReady, () => {
 
 client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot) return;
+  if (debugFlag) {
+    console.log(message);
+  }
 
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
   await log(message);
