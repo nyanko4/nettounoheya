@@ -51,7 +51,7 @@ client.on(Events.MessageCreate, async (message) => {
 })
 
 client.on(Events.MessageUpdate, async (oldMessage, newMessage) {
-  await log(oldMessage, newMessage);
+  await log(newMessage);
 })
 
 
@@ -90,7 +90,6 @@ client.on("interactionCreate", async (interaction) => {
 
 async log(message) {
     if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
-      
       const embed = new EmbedBuilder()
       .addField({ name: message.author.username, value: message.content })
       .setColor(0x00ff00)
