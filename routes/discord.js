@@ -44,7 +44,7 @@ client.on(Events.MessageCreate, async (message) => {
   await log(message);
     
   let result = null;
-  for (command in commands) {
+  for (const command in commands) {
     if (message.content == command) {
       result = await commands[command](message, "discord");
       break;
@@ -57,7 +57,10 @@ client.on(Events.MessageCreate, async (message) => {
 })
 
 client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
-  await log(newMessage);
+  if (newMessage.partial) {
+    await newMessage.fetch();
+  }
+  await log(newMessage, oldMessage);
 })
 
 
@@ -94,17 +97,41 @@ client.on("interactionCreate", async (interaction) => {
   await interaction.editReply({ content: result });
 })
 
-async function log(message) {
-  if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
-    const embed = new EmbedBuilder()
-    .addFields({ name: message.author.username, value: message.content })
-    .setColor(0x00ff00)
-    .setTimestamp(message.createdTimestamp)
-    .setURL(message.attachments.proxyURL)
-    const channel = client.channels.cache.get(LOG_ROOM_ID);
-    await channel.send({ embeds: [embed] });
+async function log(message, oldMessage = null) {
+  if (!message.author) return;
+  if (
+    message.author.id != LOG_PERSON_ID ||
+    message.channelId == LOG_ROOM_ID
+  ) return;
+  
+  const embed = new EmbedBuilder()
+  .setColor(0x00ff00)
+  .setTitle(message.author.username)
+  .addFields({ name: "messageLink", value: `[元のメッセージ](${message.url})` })
+
+  if (oldMessage) {
+    embed.addFields(
+      { name: "編集前コメント", value: oldMessage.content },
+      { name: "時刻", value: oldMessage.createdAt.toLocaleString("ja-JP") }
+    )
   }
-  return;
+
+  embed.addFields(
+    { name: "内容", value: message.content },
+    { name: "時刻", value: message.editedAt.toLocaleString("ja-JP") }
+  )
+  
+  const attachments = message.attachments.map(
+  attachment => attachment.proxyURL
+  );
+  
+  embed.addFields({
+    name: "添付ファイル",
+    value: attachments.join("\n") || "なし"
+  });
+  
+  const channel = client.channels.cache.get(LOG_ROOM_ID);
+  await channel.send({ embeds: [embed] });
 }
 
 async function debug(message) {
