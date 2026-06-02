@@ -97,7 +97,7 @@ client.on("interactionCreate", async (interaction) => {
 async function log(message) {
   if (message.author.id == LOG_PERSON_ID && message.channelId != LOG_ROOM_ID) {
     const embed = new EmbedBuilder()
-    .addField({ name: message.author.username, value: message.content })
+    .addFields({ name: message.author.username, value: message.content })
     .setColor(0x00ff00)
     .setTimestamp(message.createdTimestamp)
     .setURL(message.attachments.proxyURL)
