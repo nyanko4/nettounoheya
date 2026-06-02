@@ -10,7 +10,7 @@ const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, Me
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
 const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
 const BOT_OWNER = process.env.BOT_OWNER;
-let debug = true;
+let debugFlag = true;
 
 const client = new Client({
     intents: [
@@ -104,8 +104,8 @@ async function log(message) {
 
 async function debug(message) {
   if (message.author.id != BOT_OWNER) return;
-  debug = !debug;
-  message.reply(`デバッグモードを${debug ? "ON" : "OFF"}にしました`);
+  debugFlag = !debugFlag;
+  message.reply(`デバッグモードを${debugFlag ? "ON" : "OFF"}にしました`);
 }
 
 client.login(process.env.DISCORD_APITOKEN);
