@@ -7,6 +7,8 @@ https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 
 
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials, EmbedBuilder } = require('discord.js');
+const omikuji = require("../module/omikuji");
+const { DateTime } = require("luxon");
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
 const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
 const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
@@ -26,7 +28,7 @@ const client = new Client({
 });
 
 const commands = {
-  おみくじ: require("../module/omikuji"),
+  おみくじ: omikuji,
   debug: debug,
 }
 
@@ -109,16 +111,19 @@ async function log(message, oldMessage = null) {
   .setTitle(message.author.username)
   .addFields({ name: "messageLink", value: `[元のメッセージ](${message.url})` })
 
+   const toJST = (ms) =>
+     DateTime.fromMillis(ms, { zone: "Asia/Tokyo" }).toFormat("yyyy/MM/dd HH:mm:ss");
+
   if (oldMessage) {
     embed.addFields(
       { name: "編集前コメント", value: oldMessage.content },
-      { name: "時刻", value: oldMessage.createdAt.toLocaleString("ja-JP") }
+      { name: "時刻", value: toJST(oldMessage.createdTimestamp) }
     )
   }
 
   embed.addFields(
     { name: "内容", value: message.content },
-    { name: "時刻", value: message.editedAt.toLocaleString("ja-JP") }
+    { name: "時刻", value: toJST(message.editedTimestamp || message.createdTimestamp) }
   )
   
   const attachments = message.attachments.map(
