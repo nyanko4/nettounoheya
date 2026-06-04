@@ -45,17 +45,7 @@ client.on(Events.MessageCreate, async (message) => {
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
   await log(message);
     
-  let result = null;
-  for (const command in commands) {
-    if (message.content == command) {
-      result = await commands[command](message, "discord");
-      break;
-    }
-  }
-
-  if (result) {
-    await message.reply(result);
-  }
+  await executeCommand(message);
 })
 
 client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
@@ -98,6 +88,20 @@ client.on("interactionCreate", async (interaction) => {
   }
   await interaction.editReply({ content: result });
 })
+
+async function executeCommand(message) {
+  const command = commands[message.content];
+
+  if (!command) return;
+
+  try {
+    const result = await command(message, "discord");
+    await message.reply(result);
+  } catch (error) {
+    console.error("executeCommandError", error.response?.data || error.message);
+    await message.reply("エラーが発生しました。");
+  }
+}
 
 async function log(message, oldMessage = null) {
   if (!message.author) return;
