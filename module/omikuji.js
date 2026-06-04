@@ -20,10 +20,18 @@ function getOmikujiResult() {
   }
 };
 
+function getUserId(chatType, data) {
+  if (chatType === "discord") {
+    return data.author?.id ?? data.user?.id;
+  }
+
+  return data;
+}
+
 //おみくじ
-async function omikuji(id, chatType) {
+async function omikuji(user, chatType) {
     try {
-      const userId = chatType == "discord" ? id.author.id : id;
+      const userId = getUserId(chatType, user);
       const { data, error } = await supabase
         .from(`${chatType}Omikuji`)
         .select("id")
@@ -58,6 +66,8 @@ async function omikuji(id, chatType) {
       
     } catch (error) {
       console.error("omikujiError:", error.response?.data || error.message);
+      console.log(user);
+      return "エラーが発生しました。";
     }
 }
 
