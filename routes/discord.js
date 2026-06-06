@@ -133,11 +133,22 @@ async function log(message, oldMessage = null) {
   const attachments = message.attachments.map(
   attachment => attachment.proxyURL
   );
-  
-  embed.addFields({
-    name: "添付ファイル",
-    value: attachments.join("\n") || "なし"
-  });
+
+  if (attachments) {
+    embed.addFields({
+      name: "添付ファイル",
+      value: attachments.join("\n")
+    });
+  }
+
+  const stickerId = message.stickers.first()?.id;
+  if (stickerId) {
+    const sticker = await client.fetchSticker(stickerId);
+    embed.addFields({
+      name: "スタンプ",
+      value: sticker.url
+    })
+  }
   
   const channel = client.channels.cache.get(LOG_ROOM_ID);
   await channel.send({ embeds: [embed] });
