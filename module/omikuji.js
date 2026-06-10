@@ -2,16 +2,18 @@ const supabase = require("../supabase/client");
 
 function getOmikujiResult() {
   const outcomes = [
-      { rate: 5.0, result: "大凶" },
-      { rate: 19.5, result: "小吉" },
-      { rate: 20.0, result: "末吉" },
-      { rate: 20.0, result: "吉" },
-      { rate: 20.0, result: "中吉" },
-      { rate: 7.0, result: "凶" },
-      { rate: 0.5, result: "熱湯がなんでもする券(猫化系統以外)" }, 
-      { rate: 0.5, result: "ぺいらがなんでもする券" },
-      { rate: 0.5, result: "さばがなんでもする券" },
-      { rate: 7.0, result: "大吉" },
+    { rate: 5.0, result: "大凶" },
+    { rate: 19.5, result: "小吉" },
+    { rate: 20.0, result: "末吉" },
+    { rate: 20.0, result: "吉" },
+    { rate: 20.0, result: "中吉" },
+    { rate: 7.0, result: "凶" },
+    { rate: 0.3, result: "熱湯がなんでもする券(猫化系統以外)" }, 
+    { rate: 0.3, result: "ぺいらがなんでもする券" },
+    { rate: 0.3, result: "さばがなんでもする券" },
+    { rate: 0.3, result: "nyanko_aがなんでもする券(bot関連)" },
+    { rate: 0.3, result: "ゆゆゆがなんでもする券" },
+    { rate: 7.0, result: "大吉" },
   ];
   let random = Math.random() * 100;
   for (const { rate, result } of outcomes) {
