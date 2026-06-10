@@ -58,8 +58,16 @@ client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
 
 const slashCommands = [
   new SlashCommandBuilder()
-    .setName('おみくじ')
-    .setDescription('おみくじ'),
+    .setName("おみくじ")
+    .setDescription("おみくじ"),
+  new SlashCommandBuilder()
+    .setName("要望")
+    .setDescription("botの機能について要望できます")
+    .addStringOption((option) =>
+      option
+        .setName("内容")
+        .setDescription("botの要望したい機能を書いてください")
+        .setRequired(true)),
 ].map(cmd => cmd.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_APITOKEN);
@@ -83,8 +91,11 @@ client.on("interactionCreate", async (interaction) => {
   await interaction.deferReply({
     flags: MessageFlags.Ephemeral
   });
-  if (interaction.commandName == 'おみくじ') {
+  if (interaction.commandName == "おみくじ") {
     result = await omikuji(interaction, "discord");
+  }
+  if (interaction.commandName == "要望") {
+    result = await requestBotFunction(interaction);
   }
   await interaction.editReply({ content: result });
 })
@@ -130,14 +141,10 @@ async function log(message, oldMessage = null) {
     { name: "時刻", value: toJST(message.editedTimestamp || message.createdTimestamp) }
   )
   
-  const attachments = message.attachments.map(
-  attachment => attachment.proxyURL
-  );
-
-  if (attachments) {
+  if (message.attachments.size > 0) {
     embed.addFields({
       name: "添付ファイル",
-      value: attachments.join("\n")
+      value: message.attachments.map(a => a.proxyURL).join("\n")
     });
   }
 
@@ -158,6 +165,19 @@ async function debug(message) {
   if (message.author.id != BOT_OWNER_ID) return;
   debugFlag = !debugFlag;
   return `デバッグモードを${debugFlag ? "ON" : "OFF"}にしました`;
+}
+
+async function requestBotFunction(interaction) {
+  const requestInfo = interaction.options.getString("内容", true);
+
+  const embed = new EmbedBuilder()
+    .setColor(0x00ff00)
+    .setTitle(interaction.user.username)
+    .addFields({ name: "要望内容", value: requestInfo })
+  
+  const channel = client.channels.cache.get(REQUEST_ROOM);
+  await channel.send({ embeds: [embed] });
+  return "要望を送信しました";
 }
 
 client.login(process.env.DISCORD_APITOKEN);
