@@ -10,8 +10,9 @@ const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, Me
 const omikuji = require("../module/omikuji");
 const { DateTime } = require("luxon");
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
-const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
 const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
+const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
+const REQUEST_ROOM_ID = process.env.REQUEST_ROOM_ID;
 let debugFlag = false;
 
 const client = new Client({
@@ -175,7 +176,7 @@ async function requestBotFunction(interaction) {
     .setTitle(interaction.user.username)
     .addFields({ name: "要望内容", value: requestInfo })
   
-  const channel = client.channels.cache.get(REQUEST_ROOM);
+  const channel = client.channels.cache.get(REQUEST_ROOM_ID);
   await channel.send({ embeds: [embed] });
   return "要望を送信しました";
 }
