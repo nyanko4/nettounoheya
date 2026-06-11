@@ -3,7 +3,7 @@
 https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 */
 
-// log関数整備　ファイル対応
+// button
 
 
 const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
