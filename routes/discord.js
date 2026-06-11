@@ -6,7 +6,7 @@ https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
 // log関数整備　ファイル対応
 
 
-const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials, EmbedBuilder } = require('discord.js');
+const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const omikuji = require("../module/omikuji");
 const { DateTime } = require("luxon");
 const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
@@ -175,9 +175,21 @@ async function requestBotFunction(interaction) {
     .setColor(0x00ff00)
     .setTitle(interaction.user.username)
     .addFields({ name: "要望内容", value: requestInfo })
+
+  const confirmButton = new ButtonBuilder()
+    .setCustomId("confirm")
+    .setLabel("採用")
+    .setStyle(ButtonStyle.Success);
+
+  const cancelButton = new ButtonBuilder()
+    .setCustomId("cancel")
+    .setLabel("没")
+    .setStyle(ButtonStyle.Danger);
+
+  const buttons = new ActionRowBuilder().addComponents(confirmButton, cancelButton);
   
   const channel = client.channels.cache.get(REQUEST_ROOM_ID);
-  await channel.send({ embeds: [embed] });
+  await channel.send({ embeds: [embed], components: [buttons] });
   return "要望を送信しました";
 }
 
