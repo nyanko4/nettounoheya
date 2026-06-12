@@ -1,0 +1,166 @@
+/*
+参考資料
+https://discord.js.org/docs/packages/discord.js/14.26.4/Client:Class#on
+*/
+
+const { REST, Routes, SlashCommandBuilder, Client, GatewayIntentBits, Events, MessageFlags, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const omikuji = require("../module/omikuji");
+const { DateTime } = require("luxon");
+const LOG_PERSON_ID = process.env.LOG_PERSON_ID;
+const BOT_OWNER_ID = process.env.BOT_OWNER_ID;
+const LOG_ROOM_ID = process.env.LOG_ROOM_ID;
+const REQUEST_ROOM_ID = process.env.REQUEST_ROOM_ID;
+let debugFlag = false;
+
+const commands = {
+  おみくじ: omikuji,
+  debug: debug,
+}
+
+
+
+
+client.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
+  if (newMessage.partial) {
+    await newMessage.fetch();
+  }
+  await log(newMessage, oldMessage);
+})
+
+
+const slashCommands = [
+  new SlashCommandBuilder()
+    .setName("おみくじ")
+    .setDescription("おみくじ"),
+  new SlashCommandBuilder()
+    .setName("要望")
+    .setDescription("botの機能について要望できます")
+    .addStringOption((option) =>
+      option
+        .setName("内容")
+        .setDescription("botの要望したい機能を書いてください")
+        .setRequired(true)),
+].map(cmd => cmd.toJSON());
+
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_APITOKEN);
+
+(async () => {
+  try {
+    await rest.put(
+      Routes.applicationCommands(process.env.APP_ID),
+      { body: slashCommands }
+    );
+    console.log("Slash commands registered");
+  } catch (err) {
+    console.error(err);
+  }
+})();
+
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+  let result = "";
+  
+  await interaction.deferReply({
+    flags: MessageFlags.Ephemeral
+  });
+  if (interaction.commandName == "おみくじ") {
+    result = await omikuji(interaction, "discord");
+  }
+  if (interaction.commandName == "要望") {
+    result = await requestBotFunction(interaction);
+  }
+  await interaction.editReply({ content: result });
+})
+
+async function executeCommand(message) {
+  const command = commands[message.content];
+
+  if (!command) return;
+
+  try {
+    const result = await command(message, "discord");
+    await message.reply(result);
+  } catch (error) {
+    console.error("executeCommandError", error.response?.data || error.message);
+    await message.reply("エラーが発生しました。");
+  }
+}
+
+async function log(message, oldMessage = null) {
+  if (!message.author) return;
+  if (
+    message.author.id != LOG_PERSON_ID ||
+    message.channelId == LOG_ROOM_ID
+  ) return;
+  
+  const embed = new EmbedBuilder()
+  .setColor(0x00ff00)
+  .setTitle(message.author.username)
+  .addFields({ name: "messageLink", value: `[元のメッセージ](${message.url})` })
+
+   const toJST = (ms) =>
+     DateTime.fromMillis(ms, { zone: "Asia/Tokyo" }).toFormat("yyyy/MM/dd HH:mm:ss");
+
+  if (oldMessage) {
+    embed.addFields(
+      { name: "編集前コメント", value: oldMessage.content },
+      { name: "時刻", value: toJST(oldMessage.createdTimestamp) }
+    )
+  }
+
+  embed.addFields(
+    { name: "内容", value: message.content },
+    { name: "時刻", value: toJST(message.editedTimestamp || message.createdTimestamp) }
+  )
+  
+  if (message.attachments.size > 0) {
+    embed.addFields({
+      name: "添付ファイル",
+      value: message.attachments.map(a => a.proxyURL).join("\n")
+    });
+  }
+
+  const stickerId = message.stickers.first()?.id;
+  if (stickerId) {
+    const sticker = await client.fetchSticker(stickerId);
+    embed.addFields({
+      name: "スタンプ",
+      value: sticker.url
+    })
+  }
+  
+  const channel = client.channels.cache.get(LOG_ROOM_ID);
+  await channel.send({ embeds: [embed] });
+}
+
+async function debug(message) {
+  if (message.author.id != BOT_OWNER_ID) return;
+  debugFlag = !debugFlag;
+  return `デバッグモードを${debugFlag ? "ON" : "OFF"}にしました`;
+}
+
+async function requestBotFunction(interaction) {
+  const requestInfo = interaction.options.getString("内容", true);
+
+  const embed = new EmbedBuilder()
+    .setColor(0x00ff00)
+    .setTitle(interaction.user.username)
+    .addFields({ name: "要望内容", value: requestInfo })
+
+  const confirmButton = new ButtonBuilder()
+    .setCustomId("confirm")
+    .setLabel("採用")
+    .setStyle(ButtonStyle.Success);
+
+  const cancelButton = new ButtonBuilder()
+    .setCustomId("cancel")
+    .setLabel("没")
+    .setStyle(ButtonStyle.Danger);
+
+  const buttons = new ActionRowBuilder().addComponents(confirmButton, cancelButton);
+  
+  const channel = client.channels.cache.get(REQUEST_ROOM_ID);
+  await channel.send({ embeds: [embed], components: [buttons] });
+  return "要望を送信しました";
+}
+
