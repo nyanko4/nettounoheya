@@ -58,9 +58,11 @@ client.once(Events.ClientReady, () => {
     console.log(`${client.user.tag} ready`);
 });
 
-const handleMessageCreate = require("../discord/messageCreate");
-const handleInteractionCreate = require("../discord/interActionCreate");
-const handleMessageUpdate = require("../discord/messageUpdate
+const {
+  handleMessageCreate,
+  handleInteractionCreate,
+  handleMessageUpdate
+} = require("../modules/events");
 
 client.on(Events.MessageCreate,　handleMessageCreate);
 client.on(Events.InteractionCreate, handleInteractionCreate);
