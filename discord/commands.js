@@ -1,4 +1,6 @@
-const omikuji = require("../module/omikuji");
+const {
+  omikuji
+} = require("../modules/commands");
 
 const commands = {
   おみくじ: omikuji,
