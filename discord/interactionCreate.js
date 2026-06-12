@@ -1,4 +1,7 @@
-const { omikuji, requestsBotFunction } = require("../moduleList");
+const {
+  omikuji,
+  requestsBotFunction
+} = require("../modules/commands");
 
 async function handleInteractionCreate(interaction) {
   if (!interaction.isChatInputCommand()) return;
