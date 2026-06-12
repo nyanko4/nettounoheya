@@ -1,4 +1,5 @@
 const executeCommand = require("../discord/commands");
+const logger = require("../discord/messageLogger");
 
 async function handleMessageCreate(message) {
   if (message.author.bot) return;
@@ -8,7 +9,7 @@ async function handleMessageCreate(message) {
   
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
 
-  await log(message);
+  await logger(message);
     
   await executeCommand(message);
 }
