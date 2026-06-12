@@ -5,12 +5,7 @@ const {
   Client,
   GatewayIntentBits,
   Events,
-  MessageFlags,
   Partials,
-  EmbedBuilder,
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle
 } = require('discord.js');
 
 const client = new Client({
