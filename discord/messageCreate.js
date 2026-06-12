@@ -1,5 +1,4 @@
-const executeCommand = require("../discord/commands");
-const logger = require("../discord/messageLogger");
+const { logger, executeCommand } = require("../modules/commands");
 
 async function handleMessageCreate(message) {
   if (message.author.bot) return;
