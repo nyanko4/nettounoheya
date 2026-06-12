@@ -13,9 +13,6 @@ const {
   ButtonStyle
 } = require('discord.js');
 
-const fs = require("fs");
-const path = require("path");
-
 const client = new Client({
     intents: [
       GatewayIntentBits.Guilds,
@@ -33,7 +30,8 @@ client.once(Events.ClientReady, () => {
     console.log(`${client.user.tag} ready`);
 });
 
-const handleMessageCreate = 
+const handleMessageCreate = require("../discord/messageCreate");
+const handleInteractionCreate = require("../discord/interActionCreate");
 
 client.on(Events.MessageCreate,　handleMessageCreate);
 client.on(Events.InteractionCreate, handleInteractionCreate);
