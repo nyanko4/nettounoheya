@@ -1,4 +1,7 @@
-const { logger, executeCommand } = require("../modules/commands");
+const {
+  logger,
+  executeCommand
+} = require("../modules/commands");
 
 async function handleMessageCreate(message) {
   if (message.author.bot) return;
