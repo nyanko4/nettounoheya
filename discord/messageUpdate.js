@@ -1,4 +1,6 @@
-const logger = require("../discord/messageLogger");
+const {
+  logger
+} = require("../modules/utils");
 
 async function handleMessageUpdate(oldMessage, newMessage) {
   if (newMessage.partial) {
