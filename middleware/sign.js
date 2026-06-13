@@ -1,10 +1,10 @@
-const crypto = require('crypto');
+import crypto from "crypto";
 
 const webhookTokens = [
     Buffer.from(process.env.webhookToken, 'base64'),
 ];
 
-async function trustSignature(req) {
+export async function reqcheck(req) {
     const receivedSignature = req.header('x-chatworkwebhooksignature');
     if (!receivedSignature) {
         return "f";
@@ -24,5 +24,3 @@ async function trustSignature(req) {
 
     return "f";
 }
-
-module.exports = trustSignature;
