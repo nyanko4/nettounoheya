@@ -1,4 +1,4 @@
-import { logger } from "../modules/utils.js";
+import { logger } from "../modules/utils/messageLogger.js";
 
 export async function handleMessageUpdate(oldMessage, newMessage) {
   if (newMessage.partial) {
