@@ -1,7 +1,7 @@
-const { CronJob } = require("cron");
-const supabase = require("../supabase/client");
+import { CronJob } from "cron";
+import { supabase } from "../supabase/client.js";
 
-function startDailyTask() {
+export function startDailyTask() {
   new CronJob(
     "0 0 0 * * *",
     async () => {
@@ -13,5 +13,3 @@ function startDailyTask() {
     "Asia/Tokyo"
   );
 }
-
-module.exports = startDailyTask;
