@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 
-import { LOG_PERSON_ID, LOG_ROOM_ID } from"../discord/config.js";
+import { LOG_PERSON_ID, LOG_ROOM_ID } from"../config.js";
 
 import { DateTime } from "luxon";
 
