@@ -1,9 +1,6 @@
-const {
-  omikuji,
-  requestsBotFunction
-} = require("../modules/commands");
+import { omikuji, requestBotFunction } from "../modules/commands";
 
-async function handleInteractionCreate(interaction) {
+export async function handleInteractionCreate(interaction) {
   if (!interaction.isChatInputCommand()) return;
   
   let result = "";
@@ -21,5 +18,3 @@ async function handleInteractionCreate(interaction) {
   
   await interaction.editReply({ content: result });
 }
-
-module.exports = handleInteractionCreate;
