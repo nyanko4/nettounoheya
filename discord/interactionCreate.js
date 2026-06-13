@@ -1,4 +1,4 @@
-import { omikuji, requestBotFunction } from "../modules/commands.js";
+import { omikuji, requestBotFunction } from "../discord/modules/commands.js";
 
 export async function handleInteractionCreate(interaction) {
   if (!interaction.isChatInputCommand()) return;
