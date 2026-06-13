@@ -1,13 +1,11 @@
-const {
-  omikuji
-} = require("../modules/commands");
+import { omikuji, debug } from "../modules/commands.js";
 
 const commands = {
   おみくじ: omikuji,
   debug: debug,
 }
 
-async function executeCommand(message) {
+export async function executeCommand(message) {
   const command = commands[message.content];
 
   if (!command) return;
@@ -20,5 +18,3 @@ async function executeCommand(message) {
     await message.reply("エラーが発生しました。");
   }
 }
-
-module.exports = executeCommand;
