@@ -1,3 +1,1 @@
-module.exports = {
-  logger: require("../discord/messageLogger"),
-}
+export { logger } from "../discord/utils/messageLogger.js";
