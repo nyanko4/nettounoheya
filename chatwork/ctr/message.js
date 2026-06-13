@@ -1,4 +1,4 @@
-const import axios from "axios";
+import axios from "axios";
 const CHATWORK_API_TOKEN = process.env.CWapitoken;
 
 //メッセージを送信
