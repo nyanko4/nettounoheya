@@ -1,4 +1,4 @@
-import { omikuji, requestBotFunction } from "../modules/commands";
+import { omikuji, requestBotFunction } from "../modules/commands.js";
 
 export async function handleInteractionCreate(interaction) {
   if (!interaction.isChatInputCommand()) return;
