@@ -5,6 +5,8 @@ import {
   ButtonStyle
 } from "discord.js";
 
+import { REQUEST_ROOM_ID } from "../discord/config.js";
+
 export async function requestBotFunction(interaction) {
   const requestInfo = interaction.options.getString("内容", true);
 
