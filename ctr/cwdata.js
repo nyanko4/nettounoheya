@@ -1,8 +1,8 @@
-const axios = require("axios");
+import axios from "axios";
 
 const CHATWORK_API_TOKEN = process.env.CWapitoken;
 
-async function isUserAdmin(accountId, roomId) {
+export async function isUserAdmin(accountId, roomId) {
   try {
     const response = await axios.get(
       `https://api.chatwork.com/v2/rooms/${roomId}/members`,
@@ -24,5 +24,3 @@ async function isUserAdmin(accountId, roomId) {
     return false;
   }
 }
-
-module.exports = isUserAdmin;
