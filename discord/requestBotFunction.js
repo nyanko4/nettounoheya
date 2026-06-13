@@ -1,11 +1,11 @@
-const {
+import {
   EmbedBuilder,
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle
-} = require('discord.js');
+} from "discord.js";
 
-async function requestBotFunction(interaction) {
+export async function requestBotFunction(interaction) {
   const requestInfo = interaction.options.getString("内容", true);
 
   const embed = new EmbedBuilder()
