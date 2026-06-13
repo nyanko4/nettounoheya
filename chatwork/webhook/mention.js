@@ -2,8 +2,8 @@ import {
   readMessage,
   deleteMessages,
   sendChatwork
-} from "../chatwork/ctr/message.js";
-import { isUserAdmin } from "../chatwork/ctr/cwdata.js";
+} from "../ctr/message.js";
+import { isUserAdmin } from "../ctr/cwdata.js";
 
 export async function mentionWebhook(req, res) {
   const {
