@@ -1,9 +1,6 @@
-const {
-  logger,
-  executeCommand
-} = require("../modules/commands");
+import { logger, executeCommand } from "../modules/commands";
 
-async function handleMessageCreate(message) {
+export async function handleMessageCreate(message) {
   if (message.author.bot) return;
   if (debugFlag) {
     console.log(message);
@@ -15,5 +12,3 @@ async function handleMessageCreate(message) {
     
   await executeCommand(message);
 }
-
-module.exports = handleMessageCreate;
