@@ -1,1 +1,1 @@
-export { logger } from "../discord/utils/messageLogger.js";
+export { logger } from "../utils/messageLogger.js";
