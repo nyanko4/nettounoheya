@@ -1,5 +1,3 @@
-module.exports = {
-  omikuji: require("../module/omikuji"),
-  executeCommand: require("../discord/commands"),
-  requestBotFunction: require("../discord/requestBotFunction"),
-}
+export { omikuji } from "../module/omikuji";
+export { executeCommand } from "../commands";
+export requestBotFunction from"../requestBotFunction";
