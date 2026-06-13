@@ -1,4 +1,4 @@
-import { supabase } from "../../supabase/client.js";
+import { supabase } from "../supabase/client.js";
 
 function getOmikujiResult() {
   const outcomes = [
