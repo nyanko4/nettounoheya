@@ -1,4 +1,4 @@
-import { logger, executeCommand } from "../modules/commands";
+import { logger, executeCommand } from "../modules/commands.js";
 
 export async function handleMessageCreate(message) {
   if (message.author.bot) return;
