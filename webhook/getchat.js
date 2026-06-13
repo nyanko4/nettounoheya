@@ -1,8 +1,7 @@
-const axios = require("axios");
-const reqcheck = require("../middleware/sign");
-const commands = require("../module/commands");
+import { reqcheck } from "../middleware/sign.js";
+import { commands } from "../module/commands.js";
 
-async function getchat(req, res) {
+export async function getchat(req, res) {
   const c = await reqcheck(req);
   if (c !== "ok") {
     return res.sendStatus(400);
@@ -20,5 +19,3 @@ async function getchat(req, res) {
   await commands(body, messageId, roomId, accountId);
   res.sendStatus(200);
 }
-
-module.exports = getchat;
