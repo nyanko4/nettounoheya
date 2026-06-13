@@ -1,8 +1,8 @@
-const { readMessage, deleteMessages, sendMessage } = require("../ctr/message");
-const { isUserAdmin } = require("../ctr/cwdata");
+import { readMessage, deleteMessages, sendMessage } from "../ctr/message.js";
+import { isUserAdmin } from "../ctr/cwdata.js";
 
 
-async function mentionWebhook(req, res) {
+export async function mentionWebhook(req, res) {
   const {
     body,
     from_account_id: accountId,
@@ -22,5 +22,3 @@ async function mentionWebhook(req, res) {
   
   return "ok";
 }
-
-module.exports = mentionWebhook;
