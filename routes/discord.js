@@ -1,4 +1,4 @@
-const {
+import {
   REST,
   Routes,
   SlashCommandBuilder,
@@ -6,7 +6,7 @@ const {
   GatewayIntentBits,
   Events,
   Partials,
-} = require('discord.js');
+} from "discord.js";
 
 const client = new Client({
     intents: [
@@ -53,11 +53,11 @@ client.once(Events.ClientReady, () => {
     console.log(`${client.user.tag} ready`);
 });
 
-const {
+import {
   handleMessageCreate,
   handleInteractionCreate,
   handleMessageUpdate
-} = require("../modules/events");
+} from "../discord/modules/events.js";
 
 client.on(Events.MessageCreate,　handleMessageCreate);
 client.on(Events.InteractionCreate, handleInteractionCreate);
