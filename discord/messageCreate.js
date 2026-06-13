@@ -1,5 +1,5 @@
 import { executeCommand } from "../discord/executeCommand.js";
-import { logger } from "../discord/messageLogger.js";
+import { logger } from "../discord/modules/utils.js";
 
 export async function handleMessageCreate(message) {
   if (message.author.bot) return;
