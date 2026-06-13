@@ -1,4 +1,4 @@
-import { logger } from "../modules/utils/messageLogger.js";
+import { logger } from "../discord/modules/utils/messageLogger.js";
 
 export async function handleMessageUpdate(oldMessage, newMessage) {
   if (newMessage.partial) {
