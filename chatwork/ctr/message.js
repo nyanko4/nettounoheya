@@ -54,7 +54,7 @@ export async function deleteMessages(body, messageId, roomId, accountId) {
 }
 
 //メッセージに既読をつける
-export async function readmessage(roomId, messageId) {
+export async function readMessage(roomId, messageId) {
   try {
     await axios.put(
       `https://api.chatwork.com/v2/rooms/${roomId}/messages/read`,
