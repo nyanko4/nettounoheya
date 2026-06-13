@@ -1,3 +1,3 @@
-export { omikuji } from "../../commands/omikuji";
-export { executeCommand } from "../commands";
-export { requestBotFunction } from "../requestBotFunction";
+export { omikuji } from "../../commands/omikuji.js";
+export { executeCommand } from "../commands.js";
+export { requestBotFunction } from "../requestBotFunction.js";
