@@ -1,5 +1,5 @@
 import { executeCommand } from "../discord/executeCommand.js";
-import { messageLogger } from "../discord/messageLogger.js";
+import { logger } from "../discord/messageLogger.js";
 
 export async function handleMessageCreate(message) {
   if (message.author.bot) return;
@@ -9,7 +9,7 @@ export async function handleMessageCreate(message) {
   
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
 
-  await messageLogger(message);
+  await logger(message);
     
   await executeCommand(message);
 }
