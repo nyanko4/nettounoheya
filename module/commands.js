@@ -1,7 +1,7 @@
-const { sendchatwork } = require("../ctr/message");
-const omikuji = require("./omikuji");
+import { sendChatwork } from "../ctr/message.js";
+import { omikuji } from "../module/omikuji.js";
 
-async function commands(body, messageId, roomId, accountId) {
+export async function commands(body, messageId, roomId, accountId) {
   let result = "";
   if (body.match(/^おみくじ$/)) {
     result = await omikuji(accountId, "chatwork");
@@ -13,5 +13,3 @@ async function commands(body, messageId, roomId, accountId) {
   
   return "ok";
 }
-
-module.exports = commands;
