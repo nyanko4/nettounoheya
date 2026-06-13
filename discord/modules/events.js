@@ -1,3 +1,3 @@
-import { handleMessageCreate } from "../discord/messageCreate.js";
-import { handleInteractionCreate } from "../discord/interactionCreate.js";
-import { handleMessageUpdate } from "../discord/messageUpdate.js";
+export { handleMessageCreate } from "../messageCreate.js";
+export { handleInteractionCreate } from "../interactionCreate.js";
+export { handleMessageUpdate } from "../messageUpdate.js";
