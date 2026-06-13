@@ -1,8 +1,8 @@
-const axios = require("axios");
+const import axios from "axios";
 const CHATWORK_API_TOKEN = process.env.CWapitoken;
 
 //メッセージを送信
-async function sendchatwork(ms, roomId) {
+export async function sendChatwork(ms, roomId) {
   try {
     await axios.post(
       `https://api.chatwork.com/v2/rooms/${roomId}/messages`,
@@ -25,7 +25,7 @@ async function sendchatwork(ms, roomId) {
 }
 
 //メッセージを削除
-async function deleteMessages(body, messageId, roomId, accountId) {
+export async function deleteMessages(body, messageId, roomId, accountId) {
   const dlmessageIds = [...body.matchAll(/(?<=to=\d+-)(\d+)/g)].map(
     (match) => match[0]
   );
@@ -54,7 +54,7 @@ async function deleteMessages(body, messageId, roomId, accountId) {
 }
 
 //メッセージに既読をつける
-async function readmessage(roomId, messageId) {
+export async function readmessage(roomId, messageId) {
   try {
     await axios.put(
       `https://api.chatwork.com/v2/rooms/${roomId}/messages/read`,
@@ -75,8 +75,3 @@ async function readmessage(roomId, messageId) {
   }
 }
 
-module.exports = {
-  sendchatwork,
-  deleteMessages,
-  readmessage,
-};
