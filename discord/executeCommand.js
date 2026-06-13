@@ -1,4 +1,4 @@
-import { omikuji, debug } from "../modules/commands.js";
+import { omikuji, debug } from "../discord/modules/commands.js";
 
 const commands = {
   おみくじ: omikuji,
