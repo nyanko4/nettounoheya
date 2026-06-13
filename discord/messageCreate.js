@@ -1,4 +1,4 @@
-import { executeCommand } from "../discord/executeCommand.js";
+import { executeCommand } from "../discord/modules/commands.js";
 import { logger } from "../discord/modules/utils.js";
 
 export async function handleMessageCreate(message) {
