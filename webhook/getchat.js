@@ -1,7 +1,7 @@
 import { reqcheck } from "../middleware/sign.js";
 import { commands } from "../module/commands.js";
 
-export async function getchat(req, res) {
+export async function getchatWebhook(req, res) {
   const c = await reqcheck(req);
   if (c !== "ok") {
     return res.sendStatus(400);
