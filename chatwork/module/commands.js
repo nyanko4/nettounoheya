@@ -1,5 +1,5 @@
 import { sendChatwork } from "../ctr/message.js";
-import { omikuji } from "../module/omikuji.js";
+import { omikuji } from "../commands/omikuji.js";
 
 export async function commands(body, messageId, roomId, accountId) {
   let result = "";
