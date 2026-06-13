@@ -1,5 +1,5 @@
-import { reqcheck } from "../middleware/sign.js";
-import { commands } from "../module/commands.js";
+import { reqcheck } from "../chatwork/middleware/sign.js";
+import { commands } from "../chatwork/module/commands.js";
 
 export async function getchatWebhook(req, res) {
   const c = await reqcheck(req);
