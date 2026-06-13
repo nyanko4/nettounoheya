@@ -9,7 +9,7 @@ export async function handleMessageCreate(message) {
   
   console.log(`発言者:${message.author.username}\nメッセージ:${message.content}`);
 
-  await logger(message);
+  await messageLogger(message);
     
   await executeCommand(message);
 }
