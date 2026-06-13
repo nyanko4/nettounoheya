@@ -1,14 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const mention = require("../webhook/mention");
-const getchat = require("../webhook/getchat");
 
-router.post("/mention", (req, res) => {
-  mention(req, res);
+import { mentionWebhook } from "../webhook/mention.js";
+import { getchatWebhook } from "../webhook/getchat.js";
+
+router.post("/mention", async (req, res) => {
+  await mentionWebhook(req, res);
 });
 
-router.post("/getchat", (req, res) => {
-  getchat(req, res);
+router.post("/getchat", async (req, res) => {
+  await getchatWebhook(req, res);
 });
 
-module.exports = router;
+export default router;
