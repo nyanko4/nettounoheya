@@ -1,13 +1,9 @@
-const {
-  logger
-} = require("../modules/utils");
+import { logger } from "../modules/utils.js";
 
-async function handleMessageUpdate(oldMessage, newMessage) {
+export async function handleMessageUpdate(oldMessage, newMessage) {
   if (newMessage.partial) {
       await newMessage.fetch();
     }
   
   await logger(newMessage, oldMessage);
 }
-
-module.exports = handleMessageUpdate;
