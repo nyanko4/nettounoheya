@@ -1,4 +1,4 @@
-import startDailyTask from "./cron/dailyTask.js";
+import { startDailyTask } from "./cron/dailyTask.js";
 
   startDailyTask();
 
