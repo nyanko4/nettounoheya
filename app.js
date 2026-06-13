@@ -1,5 +1,4 @@
-"use strict";
-const startDailyTask = require("./cron/dailyTask");
+import startDailyTask from "./cron/dailyTask.js";
   startDailyTask();
-  require("./server");
-  require("./routes/discord");
+  import "./server.js";
+  import "./routes/discord.js";
