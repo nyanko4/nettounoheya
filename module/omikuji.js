@@ -1,4 +1,4 @@
-const supabase = require("../supabase/client");
+import { supabase } from "../supabase/client";
 
 function getOmikujiResult() {
   const outcomes = [
@@ -31,7 +31,7 @@ function getUserId(chatType, data) {
 }
 
 //おみくじ
-async function omikuji(user, chatType) {
+export async function omikuji(user, chatType) {
     try {
       const userId = getUserId(chatType, user);
       const { data, error } = await supabase
@@ -72,5 +72,3 @@ async function omikuji(user, chatType) {
       return "エラーが発生しました。";
     }
 }
-
-module.exports = omikuji;
