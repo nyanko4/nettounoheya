@@ -1,4 +1,4 @@
-import { BOT_OWNER_ID } from "../discord/config.js";
+import { BOT_OWNER_ID } from "../config.js";
 let debugFlag = false;
 
 export async function debug(message) {
