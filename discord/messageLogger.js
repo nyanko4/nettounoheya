@@ -1,15 +1,10 @@
-const {
-  EmbedBuilder
-} = require('discord.js');
+import { EmbedBuilder } = from "discord.js";
 
-const {
-  LOG_PERSON_ID,
-  LOG_ROOM_ID
-} = require("../discord/config.json");
+import { LOG_PERSON_ID, LOG_ROOM_ID } from"../discord/env.json";
 
-const { DateTime } = require("luxon");
+import { DateTime } from "luxon";
 
-async function logger(message, oldMessage = null) {
+export async function logger(message, oldMessage = null) {
   if (!message.author) return;
   if (
     message.author.id != LOG_PERSON_ID ||
