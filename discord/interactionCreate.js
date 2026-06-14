@@ -1,3 +1,4 @@
+import { MessageFlags } from "discord.js";
 import { omikuji, requestBotFunction } from "../discord/modules/commands.js";
 
 export async function handleInteractionCreate(interaction) {
