@@ -1,4 +1,5 @@
 import { EmbedBuilder } from "discord.js";
+import { client } from "../../routes/discord.js";
 
 import { LOG_PERSON_ID, LOG_ROOM_ID } from"../config.js";
 
