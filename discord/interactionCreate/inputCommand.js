@@ -1,3 +1,5 @@
+// slashCommandを制御する関数
+
 import { MessageFlags } from "discord.js";
 import { omikuji, requestBotFunction } from "../modules/commands.js";
 
