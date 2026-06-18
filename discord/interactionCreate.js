@@ -1,21 +1,6 @@
-import { MessageFlags } from "discord.js";
-import { omikuji, requestBotFunction } from "../discord/modules/commands.js";
+import { handleInputCommand, handleButton } from "./modules/events.js";
 
 export async function handleInteractionCreate(interaction) {
-  if (!interaction.isChatInputCommand()) return;
-  
-  let result = "";
-  
-  await interaction.deferReply({
-    flags: MessageFlags.Ephemeral
-  });
-  
-  if (interaction.commandName == "おみくじ") {
-    result = await omikuji(interaction, "discord");
-  }
-  if (interaction.commandName == "要望") {
-    result = await requestBotFunction(interaction);
-  }
-  
-  await interaction.editReply({ content: result });
+  if (interaction.isChatInputCommand()) return await handleInputCommand(interaction);
+  if (interaction.isButton()) return await handleButton(interaction);
 }
