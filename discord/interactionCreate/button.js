@@ -1,6 +1,6 @@
 // buttonを制御する関数
 
-import { confirmButton, cancelButton } from "../../modules/buttons.js";
+import { confirmButton, cancelButton } from "../modules/buttons.js";
 
 const buttonFunction = {
   confirm: confirmButton,
