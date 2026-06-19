@@ -8,14 +8,58 @@ import { client } from "../../routes/discord.js";
 
 import { REQUEST_ROOM_ID } from "../config.js";
 
+const subcommands = {
+  command: requestCommand,
+  function: requestFunction
+}
+
 export async function requestBotFunction(interaction) {
-  const requestInfo = interaction.options.getString("内容", true);
+  const subcommand = interaction.options.getSubcommand();
+  if (!subcommand) return;
+
+  const command = subcommands[subcommand];
+  if (!command) return;
+
+  const { embed, button } = await command(interaction);
+
+  const channel = client.channels.cache.get(REQUEST_ROOM_ID);
+  await channel.send({
+    embeds: [embed],
+    components: [button]
+  });
+  
+  return "要望を送信しました";
+}
+
+async function requestCommand(interaction) {
+  const requestCommandName = interaction.options.getString("command-name", true);
+  const requestCommandInfo = interaction.options.getString("command-info", true);
 
   const embed = new EmbedBuilder()
     .setColor(0x00ff00)
     .setTitle(interaction.user.username)
-    .addFields({ name: "要望内容", value: requestInfo })
+    .addFields({ name: "コマンド名", value: requestCommandName })
+    .addFields({ name: "コマンド内容", value: requestCommandInfo })
 
+  const button = await createButton()
+  
+  return { embed, button };
+}
+
+async function requestFunction(interaction) {
+  const requestFunctionInfo = interaction.options.getString("function-info", true);
+  
+  const embed = new EmbedBuilder()
+    .setColor(0x00ff00)
+    .setTitle(interaction.user.username)
+    .addFields({ name: "追加/改善案", value: requestFunctionInfo })
+
+  const button = await createButton();
+  
+  return { embed, button };
+}
+
+async function createButton() {
   const confirmButton = new ButtonBuilder()
     .setCustomId("confirm")
     .setLabel("採用")
@@ -26,9 +70,7 @@ export async function requestBotFunction(interaction) {
     .setLabel("没")
     .setStyle(ButtonStyle.Danger);
 
-  const buttons = new ActionRowBuilder().addComponents(confirmButton, cancelButton);
-  
-  const channel = client.channels.cache.get(REQUEST_ROOM_ID);
-  await channel.send({ embeds: [embed], components: [buttons] });
-  return "要望を送信しました";
+  const button = new ActionRowBuilder().addComponents(confirmButton, cancelButton);
+
+  return button;
 }
