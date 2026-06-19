@@ -2,24 +2,10 @@ import {
   REST,
   Routes,
   SlashCommandBuilder,
-  Client,
-  GatewayIntentBits,
   Events,
-  Partials,
 } from "discord.js";
 
-export const client = new Client({
-    intents: [
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.DirectMessages,
-      GatewayIntentBits.MessageContent
-    ],
-  partials: [
-    Partials.Message,
-    Partials.Channel
-  ]
-});
+import { client } from "../discord/client.js";
 
 const slashCommands = [
   new SlashCommandBuilder()
