@@ -4,7 +4,7 @@ import {
   ButtonBuilder,
   ButtonStyle
 } from "discord.js";
-import { client } from "../../routes/discord.js";
+import { client } from "../client.js";
 
 import { REQUEST_ROOM_ID } from "../config.js";
 
