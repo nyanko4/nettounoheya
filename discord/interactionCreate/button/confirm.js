@@ -3,7 +3,7 @@
 import { CONFIRM_ROOM_ID } from "../../config.js";
 
 export async function confirmButton(interaction) {
-  const message = interaction.message.embeds;
+  const message = interaction.message.embeds.fields;
   console.log(message);
   return;
 }
