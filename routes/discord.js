@@ -30,21 +30,26 @@ const slashCommands = [
     .setDescription("botの機能について要望できます")
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("コマンド名")
-        .setDescription("/の後に続くコマンド名を書いてください")
+        .setName("command")
+        .setDescription("スラッシュコマンドの要望")
         .addStringOption((option) =>
           option
-            .setName("コマンドの内容")
+            .setName("command-name")
+            .setDescription("/の後に続くコマンド名を書いてください")
+            .setRequired(true))
+        .addStringOption((option) =>
+          option
+            .setName("command-info")
             .setDescription("実装してほしいコマンドの内容を書いてください")
             .setRequired(true)))
       .addSubcommand((subcommand) =>
         subcommand
-          .setName("機能改善/追加")
-          .setDescription("機能の改善/追加の要望を書いてください")
+          .setName("function")
+          .setDescription("機能の追加/改善")
           .addStringOption((option) =>
             option
-              .setName("概要")
-              .setDescription("詳しく書ける場合は書いてください")))
+              .setName("function-info")
+              .setDescription("機能の追加/改善案を書いてください")))
 ].map(cmd => cmd.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_APITOKEN);
