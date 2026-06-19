@@ -6,5 +6,6 @@ import { CONFIRM_ROOM_ID } from "../../config.js";
 export async function confirmButton(interaction) {
   const channel = client.channels.cache.get(CONFIRM_ROOM_ID);
   await channel.send({ embeds: interaction.message.embeds });
+  await interaction.reply("採用しました");
   return;
 }
