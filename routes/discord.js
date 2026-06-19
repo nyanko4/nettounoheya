@@ -28,11 +28,23 @@ const slashCommands = [
   new SlashCommandBuilder()
     .setName("要望")
     .setDescription("botの機能について要望できます")
-    .addStringOption((option) =>
-      option
-        .setName("内容")
-        .setDescription("botの要望したい機能を書いてください")
-        .setRequired(true)),
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("コマンド名")
+        .setDescription("/の後に続くコマンド名を書いてください")
+        .addStringOption((option) =>
+          option
+            .setName("コマンドの内容")
+            .setDescription("実装してほしいコマンドの内容を書いてください")
+            .setRequired(true)))
+      .addSubcommand((subcommand) =>
+        subcommand
+          .setName("機能改善/追加")
+          .setDescription("機能の改善/追加の要望を書いてください")
+          .addStringOption((option) =>
+            option
+              .setName("概要")
+              .setDescription("詳しく書ける場合は書いてください")))
 ].map(cmd => cmd.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_APITOKEN);
