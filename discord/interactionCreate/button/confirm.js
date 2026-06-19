@@ -5,5 +5,6 @@ import { CONFIRM_ROOM_ID } from "../../config.js";
 export async function confirmButton(interaction) {
   const message = interaction.message.embeds[0].data.fields;
   console.log(message);
+  interaction.reply({ embeds: interaction.message.embeds });
   return;
 }
