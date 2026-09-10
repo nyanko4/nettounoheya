@@ -135,4 +135,18 @@ client.on(Events.InteractionCreate, handleInteractionCreate);
 client.on(Events.MessageUpdate, handleMessageUpdate);
 client.on(Events.MessageDelete, handleMessageDelete);
 
+client.on('shardDisconnect', (event, shardId) => {
+  console.log(
+    `DISCONNECT shard=${shardId} code=${event.code} reason=${event.reason}`
+  );
+});
+
+client.on('shardReconnecting', shardId => {
+  console.log(`RECONNECTING shard=${shardId}`);
+});
+
+client.on('shardResume', shardId => {
+  console.log(`RESUMED shard=${shardId}`);
+});
+
 client.login(process.env.DISCORD_APITOKEN);
