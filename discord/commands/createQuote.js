@@ -12,7 +12,7 @@ export async function createQuote(interaction) {
 		author: user,
 	}
 
-	const png = await new MiQ().setFromMessage(message).setTheme({ extends : 'color', text: { weight: 'bold' } }).toBuffer('png');
+	const png = await new MiQ().setFromMessage(message).setTheme({ extends : 'custom', text: { weight: 'bold' } }).toBuffer('png');
 
 	console.log(png)
 	
