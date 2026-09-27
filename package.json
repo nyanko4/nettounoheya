@@ -12,7 +12,7 @@
     "cron": "^4.3.1",
     "@supabase/supabase-js": "^2.80.0",
     "discord.js": "^14.14.1",
-    "makeitaquote": "^12.1.2"
+    "makeitaquote": "^9.0.0"
   },
   "scripts": {
     "start": "node app.js"
