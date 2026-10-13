@@ -8,12 +8,9 @@ function getOmikujiResult() {
     { rate: 20.0, result: "吉" },
     { rate: 20.0, result: "中吉" },
     { rate: 7.0, result: "凶" },
-    { rate: 0.3, result: "熱湯がなんでもする券(猫化系統以外)" }, 
-    { rate: 0.3, result: "ぺいらがなんでもする券" },
-    { rate: 0.3, result: "さばがなんでもする券" },
-    { rate: 0.3, result: "nyanko_aがなんでもする券(bot関連)" },
-    { rate: 0.3, result: "ゆゆゆがなんでもする券" },
-    { rate: 7.0, result: "大吉" },
+    { rate: 1.3, result: "大大吉" }, 
+    { rate: 0.2, result: " 大大大吉（勝利の化身があなたに微笑みかけることであろう）"},
+    { rate: 7.0, result: "大吉" }
   ];
   let random = Math.random() * 100;
   for (const { rate, result } of outcomes) {
